@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Typing Test</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Roboto Mono', monospace;
+    }
+    .background {
+      background: url('https://i.pinimg.com/originals/44/6e/3b/446e3b79395a287ca32f7977dd83b290.jpg') no-repeat center center;
+      background-size: cover;
+    }
+    #firefly-bg {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+    }
+    .firefly {
+      position: absolute;
+      width: 0.4vw;
+      height: 0.4vw;
+      border-radius: 50%;
+      animation: drift 20s ease-in-out infinite;
+    }
+    .firefly::before,
+    .firefly::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      transform-origin: -10vw;
+    }
+    .firefly::before {
+      background: black;
+      opacity: 0.4;
+      animation: drift 10s ease-in-out alternate infinite;
+    }
+    .firefly::after {
+      background: white;
+      opacity: 0;
+      box-shadow: 0 0 0vw 0vw yellow;
+      animation: drift 10s ease-in-out alternate infinite, flash 6s ease-in-out infinite;
+    }
+    @keyframes drift {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    @keyframes flash {
+      0%, 30%, 100% {
+        opacity: 0;
+        box-shadow: 0 0 0vw 0vw yellow;
+      }
+      5% {
+        opacity: 1;
+        box-shadow: 0 0 2vw 0.4vw yellow;
+      }
+    }
+        .glow-text {
+  text-shadow: 0 0 8px rgba(96, 165, 250, 0.8);
+}
+  </style>
+</head>
+
+<body class="min-h-screen flex flex-col text-white font-mono overflow-y-auto">
+
+  <!-- Firefly Background -->
+  <section>
+    <div id="firefly-bg" class="background"></div>
+  </section>
+
+  <!-- Navbar -->
+  <nav class="w-full px-4 md:px-8 relative z-10 bg-transparent">
+    <div class="flex items-center justify-between w-full">
+      <!-- Logo -->
+      <div class="text-xl md:text-2xl font-bold flex items-center px-2 py-1">
+  <div class="relative w-[42px] h-[42px] md:w-[45px] md:h-[45px]">
+    <!-- Glowing border -->
+    <div class="absolute inset-0 rounded-full bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 animate-pulse blur-sm"></div>
+    
+    <!-- Image with border mask to only show glow -->
+    <div class="relative w-full h-full rounded-full bg-black p-[2px]">
+      <img
+        src="https://mrwallpaper.com/images/hd/metallic-purple-avengers-logo-4kwvtu6947v256dp.jpg"
+        alt="Logo"
+        class="w-full h-full object-cover rounded-full" />
+    </div>
+  </div>
+      </div>
+
+      <!-- Mobile Home Button -->
+      <a href="index.html"
+        class="md:hidden bg-gray-800 text-white font-semibold px-4 py-2 rounded-xl border border-white hover:bg-transparent transition duration-200">
+        Home
+      </a>
+
+      <!-- Desktop Menu -->
+      <ul class="hidden md:flex items-center space-x-6 text-base md:text-2xl font-semibold italic text-white">
+        <li><a href="index.html" class="hover:text-blue-300 transform hover:scale-105 transition duration-200">Home</a></li>
+        <li class="flex items-center space-x-2 hover:text-blue-300">
+          <span class="text-xl">🌐</span>
+          <label for="language-select" class="sr-only">Select Language</label>
+          <select id="language-select"
+            class="bg-transparent text-white text-base md:text-xl px-1 py-0.5 focus:outline-none">
+            <option class="text-gray-900">English</option>
+            <option class="text-gray-900">LOL😒</option>
+          </select>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="flex-grow w-full px-2 md:px-10"></div>
+    <div class="flex flex-col items-center justify-center">
+      <!-- Title -->
+      <h1 class="text-2xl sm:text-3xl md:text-4xl text-gray-200 font-bold mb-4 text-center">
+        <style> .glow-text {text-shadow: 0 0 5px rgba(83, 114, 197, 0.8);} </style> 
+        <span class="glow-text">Type⌨️ </span><span class="glow-text">Track🎯</span><span class="glow-text">Triumph🔥</span>
+      </h1>
+
+      <!-- Duration Dropdown -->
+      <div class="mb-6">
+        <label for="test-duration" class="mr-2 text-2xl text-white font-bold glow-text">Select Duration🕒: </label>
+        <select id="test-duration"
+          class="text-white px-2 py-1 rounded bg-gray-800 border border-white focus:outline-none focus:ring-2 focus:ring-blue-400">
+          <option value="30">30 Seconds</option>
+          <option value="60">1 Minute</option>
+          <option value="120">2 Minutes</option>
+          <option value="300">5 Minutes</option>
+        </select>
+      </div>
+
+      <!-- Typing Text -->
+      <div id="typing-text"
+        class="w-full max-w-5xl min-h-[200px] p-4 mb-2 rounded-xl border border-gray-400 text-white backdrop-blur-md">
+        <div id="generated-text" class="flex flex-wrap gap-x-1 gap-y-2 leading-relaxed text-xl">
+          Loading text for typing test...
+        </div>
+      </div>
+
+      <!-- User Input -->
+      <textarea id="user-input" placeholder="Start typing here..."
+        class="w-full max-w-5xl min-h-[120px] text-gray-200 placeholder-white p-4 mb-4 rounded-xl border border-gray-400 backdrop-blur-md bg-transparent resize-none focus:outline-none focus:ring-2 focus:ring-blue-400"></textarea>
+
+      <!-- Timer -->
+      <div id="countdown-timer" class="text-2xl mb-4 text-blue">00:00</div>
+
+     <div class="flex gap-4 mt- mb-4 justify-center">
+  <button id="new-test-btn" class="px-4 py-2 bg-gray-800 border-gray800 text-white rounded-xl border hover:bg-blue-600 hover:text-black font-bold">
+    New Test
+  </button>
+  <button id="submit-btn" class="px-4 py-2 bg-gray-800 border-gray800 text-white rounded-xl border hover:bg-green-600 hover:text-black font-bold">
+    Submit
+  </button>
+</div>
+
+    </div>
+  </div>
+
+
+<footer class="bg-black/10 backdrop-blur-md text-white fontsemi-bold text-center py-3 relative z-10 shadow-inner glow-text">
+  Developed by a <span class="text-blue-400 shadow-inner glow-text font-semibold">Backbencher 😎</span>
+</footer>
+
+  <!-- Firefly Script -->
+  <script>
+    const numFireflies = Math.floor(Math.random() * 2) + 5;
+    for (let i = 0; i < numFireflies; i++) {
+      const firefly = document.createElement('div');
+      firefly.className = 'firefly';
+      firefly.style.animationDelay = `${Math.random() * 5}s`;
+      firefly.style.left = `${Math.random() * 100}vw`;
+      firefly.style.top = `${Math.random() * 100}vh`;
+      document.getElementById('firefly-bg').appendChild(firefly);
+    }
+  </script>
+
+  <!-- Logic Scripts -->
+  <script src="index.js" defer></script>
+  <script>
+    document.getElementById('menu-toggle')?.addEventListener('click', () => {
+      const menu = document.getElementById('menu');
+      menu?.classList.toggle('hidden');
+    });
+  </script>
+
+</body>
+</html>

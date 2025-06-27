@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TypingCore</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12" defer></script>
+
+  
+  <!-- Firefly Background Style -->
+  <style> 
+    body {
+      font-family: 'Roboto Mono', monospace;
+    }
+
+    .background {
+      background: url('https://i.pinimg.com/originals/44/6e/3b/446e3b79395a287ca32f7977dd83b290.jpg') no-repeat center center;
+      background-size: cover;
+    }
+
+    #firefly-bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .firefly {
+      position: absolute;
+      width: 0.4vw;
+      height: 0.4vw;
+      border-radius: 50%;
+      animation: drift 20s ease-in-out infinite;
+    }
+
+    .firefly::before,
+    .firefly::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      transform-origin: -10vw;
+    }
+
+    .firefly::before {
+      background: black;
+      opacity: 0.4;
+      animation: drift 10s ease-in-out alternate infinite;
+    }
+
+    .firefly::after {
+      background: white;
+      opacity: 0;
+      box-shadow: 0 0 0vw 0vw yellow;
+      animation: drift 10s ease-in-out alternate infinite, flash 6s ease-in-out infinite;
+    }
+
+    @keyframes drift {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    @keyframes flash {
+      0%, 30%, 100% {
+        opacity: 0;
+        box-shadow: 0 0 0vw 0vw yellow;
+      }
+      5% {
+        opacity: 1;
+        box-shadow: 0 0 2vw 0.4vw yellow;
+      }
+      
+    }
+  </style>
+</head>
+
+<body class="font-sans relative min-h-screen flex flex-col">
+
+  <!-- Firefly Background -->
+  <div id="firefly-bg" class="background z-0"></div>
+
+  <!-- Main Content -->
+  <div class="flex flex-col flex-grow relative z-10">
+
+    <!-- Navbar -->
+    <nav class="flex justify-between items-center px-2 md:px-10 py-2">
+             <div class="text-xl md:text-2xl font-bold flex items-center px-2 py-1">
+ <div class="relative w-[42px] h-[42px] md:w-[45px] md:h-[45px]">
+   <!-- Glowing border -->
+   <div class="absolute inset-0 rounded-full bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 animate-pulse blur-sm"></div>
+   
+   <!-- Image with border mask to only show glow -->
+   <div class="relative w-full h-full rounded-full bg-black p-[2px]">
+     <img
+       src="https://mrwallpaper.com/images/hd/metallic-purple-avengers-logo-4kwvtu6947v256dp.jpg"
+       alt="Logo"
+       class="w-full h-full object-cover rounded-full" />
+   </div>
+ </div>
+     </div>
+     
+      <ul class="flex space-x-6 text-lg md:text-2xl items-center font-semibold italic">
+        <li><a href="#" class="text-white hover:text-blue-300 transform hover:scale-105 transition duration-200">Home</a></li>
+        <li class="flex items-center space-x-2 cursor-pointer hover:text-blue-300">
+          <span class="text-xl">🌐</span>
+          <label for="language-select" class="sr-only">Select Language</label>
+          <select id="language-select" class="bg-transparent text-white text-xl px-1 py-0.5 focus:outline-none">
+            <option class="text-gray-900">English</option>
+            <option class="text-gray-900">LOL😒</option>
+            <option class="text-gray-900"></option>
+          </select>
+        </li>
+      </ul>
+    </nav>
+<style> .glow-text {text-shadow: 0 0 5px rgba(96, 165, 250, 0.8);} </style>  <!-- This Style Using Also For Footer Section -->
+    <!-- Hero Section -->
+    <section class="flex-grow flex items-center justify-center px-4 md:px-10 text-center">
+      <div class="space-y-10 w-full max-w-7xl">
+        <h1 class="font-bold leading-tight italic text-center">
+          <span class="text-blue-200 glow-text text-3xl sm:text-4xl lg:text-5xl block lg:inline">Precision </span>
+          <span class="text-blue-300 glow-text text-5xl sm:text-6xl lg:text-7xl block lg:inline"> Speed </span>
+          <span class="text-blue-400 glow-text text-6xl sm:text-7xl lg:text-8xl block lg:inline"> Confidence</span>
+        </h1>
+
+        <h2 class="text-xl sm:text-2xl md:text-3xl text-gray-200 italic px-2 sm:px-4">
+          Join hundreds of typists mastering their skills with our interactive typing tests🔥 
+        </h2>
+
+        <h1 class="text-2xl md:text-4xl font-bold text-white italic text-center px-4">
+          <span id="typed" class="inline-block break-words"></span>
+        </h1>
+
+       <button onclick="handleClick()"
+                    class="btn-shine text-white bg-gray-800 hover:text-white transition px-6 py-3 rounded-xl border border-white hover:bg-transparent font-medium text-base sm:text-lg">
+                  Let's<span class="text-blue-500"> Start</span>
+        </button>
+
+      </div>
+    </section>
+
+  </div>
+
+
+<footer class="bg-black/10 backdrop-blur-md text-white fontsemi-bold text-center py-3 relative z-10 shadow-inner glow-text">
+  Developed by a <span class="text-blue-400 shadow-inner glow-text font-semibold">Backbencher 😎</span>
+</footer>
+
+
+<!-- Loader Section Starts -->
+<section>
+<!-- /* Styles starts for loader*/ -->
+
+  <style> 
+.eye {
+  width: 20px;
+  height: 8px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 0px 0px 20px 20px;
+  position: relative;
+  left: 10px;
+  top: 40px;
+  box-shadow: 40px 0px 0px 0px rgb(93, 91, 91);
+}
+
+.head {
+  backface-visibility: hidden;
+  position: relative;
+  margin: -250px auto;
+  width: 80px;
+  height: 80px;
+  background-color: #111;
+  border-radius: 50px;
+  box-shadow: inset -4px 2px 0px 0px rgba(240,220,220,1);
+  animation: headAnim 1.5s infinite alternate;
+  animation-timing-function: ease-out;
+}
+
+.body {
+  position: relative;
+  margin: 90px auto;
+  width: 140px;
+  height: 120px;
+  background-color: #111;
+  border-radius: 50px/25px;
+  box-shadow: inset -5px 2px 0px 0px rgba(240,220,220,1);
+  animation: bodyAnim 1.5s infinite alternate;
+  animation-timing-function: ease-out;
+}
+
+@keyframes headAnim {
+  0% {
+    top: 0px;
+  }
+
+  50% {
+    top: 10px;
+  }
+
+  100% {
+    top: 0px;
+  }
+}
+
+@keyframes bodyAnim {
+  0% {
+    top: -5px;
+  }
+
+  50% {
+    top: 10px;
+  }
+
+  100% {
+    top: -5px;
+  }
+}
+
+.circ {
+  backface-visibility: hidden;
+  margin: 60px auto;
+  width: 180px;
+  height: 180px;
+  border-radius: 0px 0px 50px 50px;
+  position: relative;
+  z-index: -1;
+  left: 0%;
+  top: 20%;
+  overflow: hidden;
+}
+
+.hands {
+  margin-top: 140px;
+  width: 120px;
+  height: 120px;
+  position: absolute;
+  background-color: #111;
+  border-radius: 20px;
+  box-shadow: -1px -4px 0px 0px rgba(240,220,220,1);
+  transform: rotate(45deg);
+  top: 75%;
+  left: 16%;
+  z-index: 1;
+  animation: bodyAnim 1.5s infinite alternate;
+  animation-timing-function: ease-out;
+}
+
+.load {
+  position: absolute;
+  width: 7ch;
+  height: 32px;
+  text-align: left;
+  line-height: 32px;
+  margin: -10px auto;
+  font-family: 'Julius Sans One', sans-serif;
+  font-size: 28px;
+  font-weight: 400;
+  color: rgb(220, 214, 214);
+  left: 2%;
+  top: 5%;
+  animation: fontAnim 3.75s infinite;
+  animation-timing-function: ease-out;
+  word-wrap: break-word;
+  display: block;
+  overflow: hidden;
+}
+
+@keyframes fontAnim {
+  0% {
+    width: 7ch;
+  }
+
+  16% {
+    width: 8ch;
+  }
+
+  32% {
+    width: 9ch;
+  }
+
+  48% {
+    width: 10ch;
+  }
+
+  64% {
+    width: 11ch;
+  }
+
+  80% {
+    width: 12ch;
+  }
+
+  100% {
+    width: 13ch;
+  }
+}
+  .banter-loader-hidden {  /*Its Loader Style*/
+    display: none;
+  }
+  </style>
+  <!-- /* Styles ended for loader*/ -->
+
+
+<!-- Loader_Name: Banter Loader Wrapper -->
+<div id="banter-loader" class="fixed inset-0 bg-black z-50 flex items-center justify-center banter-loader-hidden">
+<div class="circ">
+  <div class="load">Loading . . . </div>
+  <div class="hands"></div>
+  <div class="body"></div>
+  <div class="head">
+    <div class="eye"></div>
+  </div>
+</div>
+</div>
+
+</section>
+<!-- Loader Section Ends -->
+
+
+
+  <!-- Scripts -->
+  <script>
+    window.onload = () => {
+      new Typed("#typed", {
+        strings: [
+          "Track Your Progress🔥 and improve daily 💪",
+          "Type fast⚡ Type smart🧠"
+        ],
+        typeSpeed: 60,
+        backSpeed: 30,
+        loop: true
+      });
+
+      const numFireflies = Math.floor(Math.random() * 2) + 5;
+      for (let i = 0; i < numFireflies; i++) {
+        const firefly = document.createElement('div');
+        firefly.className = 'firefly';
+        firefly.style.animationDelay = `${Math.random() * 5}s`;
+        firefly.style.left = `${Math.random() * 100}vw`;
+        firefly.style.top = `${Math.random() * 100}vh`;
+        document.getElementById('firefly-bg').appendChild(firefly);
+      }
+    };
+
+  function handleClick() {
+    const loader = document.getElementById("banter-loader");
+    if (!loader) {
+      console.error("Loader not found!");
+      return;
+    }
+    loader.style.display = "flex";
+
+    setTimeout(() => {
+      window.location.href = "UserUI.html";
+    }, 1300); 
+  }
+
+
+
+    
+  </script>
+
+</body>
+</html>
